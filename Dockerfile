@@ -17,4 +17,6 @@ COPY src .
 # ENTRYPOINT [ "python3", "app.py"]
 # CMD ["app.py" ]
 # CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
-CMD uvicorn --app-dir . main:app --reload
+EXPOSE 8000
+
+CMD uvicorn main:app --host 0.0.0.0 --port 8000
