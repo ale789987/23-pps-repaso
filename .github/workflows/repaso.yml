@@ -52,8 +52,8 @@ jobs:
     - name: multiple command
       uses: appleboy/ssh-action@master
       with:
-        host: ${{ secrets.HOSTNAME }}
-        username: ${{ secrets.USER_NAME }}
+        host: ${{ secrets.AWS_HOSTNAME }}
+        username: ${{ secrets.AWS_USER_NAME }}
         key: ${{ secrets.AWS_PRIVATE_KEY }}
         port: 22  # ${{ secrets.PORT }}
         script: |
