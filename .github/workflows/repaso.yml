@@ -44,20 +44,20 @@ jobs:
           push: true 
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/repaso:latest
 
-  # # aws:
-  #   name: Deploy image to aws
-  #   runs-on: ubuntu-latest
-  #   needs: build
-  #   steps:
-  #   - name: multiple command
-  #     uses: appleboy/ssh-action@master
-  #     with:
-  #       host: ${{ secrets.HOSTNAME }}
-  #       username: ${{ secrets.USER_NAME }}
-  #       key: ${{ secrets.AWS_PRIVATE_KEY }}
-  #       port: 22  # ${{ secrets.PORT }}
-  #       script: |
-  #           sleep 60
-  #           docker stop web && docker rm web
-  #           docker rmi angoies/galeria
-  #           docker run -d -p 80:5000 --name web angoies/galeria
+   aws:
+    name: Deploy image to aws
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+    - name: multiple command
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOSTNAME }}
+        username: ${{ secrets.USER_NAME }}
+        key: ${{ secrets.AWS_PRIVATE_KEY }}
+        port: 22  # ${{ secrets.PORT }}
+        script: |
+            sleep 40
+            docker stop web && docker rm web
+            docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/repaso
+            docker run -d -p 80:8000 --name web ${{ secrets.DOCKERHUB_USERNAME }}/repaso
